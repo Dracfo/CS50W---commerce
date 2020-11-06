@@ -1,7 +1,11 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    Watchlist
+{% endblock %}
+
 {% block body %}
-    <h2>Active Listings</h2>
+    <h2>Listings You Are Watching</h2>
 
     <table class="table table-hover">
         <thead>
@@ -10,6 +14,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Description</th>
                 <th scope="col">Current Bid</th>
+                <th></th>
             </tr>
         </thead>
          <tbody>
@@ -20,6 +25,7 @@
                     <td>{{ listing.title }}</td>
                     <td>{{ listing.description }}</td>
                     <td>${{ listing.starting_bid }}</td>
+                    <td><a class="btn btn-danger" href="/watchlist/remove/{{ listing.id }}">Remove</a></td>
                 </tr>
             </a>
             {% endfor %}

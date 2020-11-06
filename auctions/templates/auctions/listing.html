@@ -1,0 +1,43 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Listing: {{ listing.title }}
+{% endblock %}
+
+{% block body %}
+    <h2>{{ listing.title }}</h2>
+
+    <table class="table">
+        <tr>
+            <td>
+                <img style="max-width: 200px; max-height: 200px;" src="{{ listing.image }}">
+            </td>
+            <td>
+                {% if listing.is_done == True and listing.winner == user.id %}
+                    <h1>Congradulations! You've Won!</h1>
+                {% elif listing.is_done == True %}
+                    <h1>Auction Closed</h1>
+                {% endif %}
+                
+                <h2>${{ listing.starting_bid }}</h2>
+                
+                <h6>Sold by: {{ listing.created_by }}</h6>
+
+                <p>{{ listing.description }}</p>
+
+                
+                {% if user.id == listing.created_by.id %}
+                    <button class="btn btn-warning" action="/watchlist">Close Auction</button>
+                {% elif user.is_authenticated %}
+                <a class="btn btn-primary" href="/watchlist/{{ listing.id }}">Add to Watchlist</a>
+                <a class="btn btn-success" action="/bid">BID</a>
+                
+                {% endif %}
+
+            </td>
+        </tr>
+    </table>
+    
+
+    
+{% endblock %}
